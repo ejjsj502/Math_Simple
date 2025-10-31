@@ -5,6 +5,7 @@
 <h2>{{ post.title }}</h2>
 <p>Publicado em {{ post.posted_at|date:"d/m/Y H:i" }}</p>
 <div>{{ post.content|safe }}</div>
+
 <hr>
 <h3>Categorias:</h3>
 <ul>
@@ -12,15 +13,22 @@
     <li><a href="{% url 'category-detail' pk=category.pk %}">{{ category.name }}</a></li>
     {% endfor %}
 </ul>
+
 <hr>
 <h3>Comentários:</h3>
 <ul>
     {% for comment in post.comments.all %}
-    <li><b>{{ comment.author.username }}</b> : {{ comment.text }}    ({{ comment.posted_at|date:"d/m/Y H:i" }})</li>
+    <li><b>{{ comment.author.username }}</b> : {{ comment.text }} ({{ comment.posted_at|date:"d/m/Y H:i" }})</li>
 {% empty %}
     <li>Sem comentários ainda.</li>
 {% endfor %}
 </ul>
 
 <a href="{% url 'comment-add' post_pk=post.pk %}">Adicionar comentário</a>
+
+{% if user.is_authenticated and user.is_staff %}
+    <hr>
+    <a href="{% url 'post-update' pk=post.pk %}" class="btn btn-small">Editar Post</a>
+    <a href="{% url 'post-delete' pk=post.pk %}" class="btn btn-small" style="color:red;">Remover Post</a>
+{% endif %}
 {% endblock %}
