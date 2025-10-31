@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, render, redirect
@@ -31,12 +32,17 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy('post-list')
 
 # Comment create as FBV (could also be a CreateView)
+@login_required
 def add_comment(request, post_pk):
+    """
+    View para criar um comentário relacionado ao Post de id post_pk.
+    Exige que o usuário esteja autenticado.
+    """
     post = get_object_or_404(Post, pk=post_pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            com = form.save(commit=False)
+            com = form.save(commit=False)   # não salva ainda
             com.post = post
             com.author = request.user
             com.save()

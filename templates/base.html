@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <title>{% block title %}Meu Blog{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header>
+    <h1><a href="{% url 'post-list' %}">Meu Blog</a></h1>
+    <nav>
+      <a href="{% url 'post-create' %}">Criar Post</a> |
+      <a href="{% url 'post-list' %}">Posts</a> |
+      <a href="{% url 'category-list' %}">Categorias</a> |
+      {% if user.is_authenticated %}Olá, {{ user.username }}{% else %}<a href="{% url 'admin:login' %}">Admin</a>{% endif %}
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <hr>
+    <p>Exemplo de blog - entrega</p>
+  </footer>
+</body>
+</html>
