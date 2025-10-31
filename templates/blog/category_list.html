@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
+
+{% block title %}Categorias{% endblock %}
+
 {% block content %}
-<h2>Categorias</h2>
-<ul>
-  {% for cat in categories %}
-    <li><a href="{% url 'category-detail' pk=cat.pk %}">{{ cat.name }}</a> — {{ cat.description }}</li>
-  {% empty %}
-    <li>Não há categorias.</li>
-  {% endfor %}
-</ul>
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold">Categorias</h2>
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 h-100 hover-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'category-detail' category.id %}" class="text-decoration-none text-dark">
+                                {{ category.name }}
+                            </a>
+                        </h5>
+                        <p class="card-text text-muted">{{ category.description|truncatewords:20 }}</p>
+                    </div>
+                </div>
+            </div>
+        <hr style="border: 0; border-top: 2px dashed #333; width: 50%; margin: 20px 0;">
+        {% empty %}
+            <p>Nenhuma categoria encontrada.</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

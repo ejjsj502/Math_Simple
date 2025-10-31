@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% block title %}Criar/Editar Post - Math Simple{% endblock %}
+
 {% block content %}
 <h2>{% if form.instance.pk %}Editar Post{% else %}Criar Post{% endif %}</h2>
 
 <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Salvar</button>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">{% if form.instance.pk %}Atualizar{% else %}Criar{% endif %}</button>
 </form>
 
+<a href="{% url 'post-list' %}">Voltar para a lista de posts</a>
 {% endblock %}

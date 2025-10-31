@@ -1,34 +1,26 @@
 {% extends 'base.html' %}
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title }} - Math Simple{% endblock %}
+
 {% block content %}
 <h2>{{ post.title }}</h2>
-<p><small>{{ post.posted_at|date:"d/m/Y H:i" }}</small></p>
+<p>Publicado em {{ post.posted_at|date:"d/m/Y H:i" }}</p>
 <div>{{ post.content|safe }}</div>
-
-<p>Categorias:
-  {% for cat in post.categories.all %}
-    <a href="{% url 'category-detail' pk=cat.pk %}">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}
-  {% empty %}
-    Nenhuma.
-  {% endfor %}
-</p>
-
 <hr>
-<h3>Comentários</h3>
-<a href="{% url 'comment-add' post_pk=post.pk %}">Adicionar comentário</a>
+<h3>Categorias:</h3>
 <ul>
-  {% for comment in post.comments.all %}
-    <li><strong>{{ comment.author }}</strong> — {{ comment.posted_at|date:"d/m/Y H:i" }}<br>{{ comment.text }}</li>
-  {% empty %}
-    <li>Sem comentários.</li>
-  {% endfor %}
+    {% for category in post.categories.all %}
+    <li><a href="{% url 'category-detail' pk=category.pk %}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
+<hr>
+<h3>Comentários:</h3>
+<ul>
+    {% for comment in post.comments.all %}
+    <li><b>{{ comment.author.username }}</b> : {{ comment.text }}    ({{ comment.posted_at|date:"d/m/Y H:i" }})</li>
+{% empty %}
+    <li>Sem comentários ainda.</li>
+{% endfor %}
 </ul>
 
-<hr>
-<p>
-  <a href="{% url 'post-update' pk=post.pk %}">Editar</a> |
-  <a href="{% url 'post-delete' pk=post.pk %}">Remover</a>
-</p>
-
-
+<a href="{% url 'comment-add' post_pk=post.pk %}">Adicionar comentário</a>
 {% endblock %}

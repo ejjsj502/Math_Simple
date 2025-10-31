@@ -11,7 +11,7 @@ class Post(models.Model):
     content = models.TextField()  # armazenará HTML
     posted_at = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField(Category, related_name='posts', blank=True)
-
+    
     def __str__(self): return self.title
 
 class Comment(models.Model):
