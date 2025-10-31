@@ -3,9 +3,9 @@
 <h2>Categorias</h2>
 <ul>
   {% for cat in categories %}
-    <li><a href="{% url 'category-detail' pk=cat.pk %}">{{ cat.name }}</a></li>
+    <li><a href="{% url 'category-detail' pk=cat.pk %}">{{ cat.name }}</a> — {{ cat.description }}</li>
   {% empty %}
-    <li>Sem categorias.</li>
+    <li>Não há categorias.</li>
   {% endfor %}
 </ul>
 {% endblock %}

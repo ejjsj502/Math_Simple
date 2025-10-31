@@ -2,5 +2,7 @@
 {% block content %}
 <h2>Categoria: {{ category.name }}</h2>
 <p>{{ category.description }}</p>
+
+{# Reaproveita listagem de posts, passando posts e category_name #}
 {% include 'blog/post_list.html' with posts=posts category_name=category.name %}
 {% endblock %}
