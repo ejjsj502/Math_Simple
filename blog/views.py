@@ -58,5 +58,5 @@ class CategoryListView(ListView):
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    posts = category.posts.order_by('-date_posted')  
+    posts = category.posts.order_by('-posted_at')  
     return render(request, 'blog/category_detail.html', {'category': category, 'posts': posts})
