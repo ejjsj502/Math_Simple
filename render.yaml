@@ -3,13 +3,12 @@ services:
     name: math-simple
     env: python
     plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
     buildCommand: |
-      # Atualiza pip, setuptools e wheel antes da instalação
       pip install --upgrade pip setuptools wheel
-      # Instala as dependências do projeto
       pip install -r requirements.txt
-      # Coleta arquivos estáticos do Django
       python manage.py collectstatic --noinput
-      # Aplica migrations
       python manage.py migrate
     startCommand: gunicorn meublog.wsgi:application
