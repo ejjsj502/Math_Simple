@@ -20,11 +20,13 @@ class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/post_form.html'
+    success_url = reverse_lazy('post-list')
 
 class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/post_form.html'
+    success_url = reverse_lazy('post-list')
 
 class PostDeleteView(DeleteView):
     model = Post
