@@ -2,17 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import django
-from django.contrib.auth.models import User
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
-django.setup()
-
-if not User.objects.filter(username='Matematico').exists():
-    User.objects.create_superuser('Matematico', 'matematico@gmail.com', '123456789')
-    print("Superuser criado!")
-else:
-    print("Superuser já existe!")
 
 
 def main():
